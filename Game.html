@@ -3,96 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colorful Test Website</title>
+    <title>Rock, Paper, Scissors Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #4CAF50;
-        }
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-        section {
-            padding: 20px;
             background-color: #f4f4f4;
-            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 16px;
         }
-        footer {
-            background-color: #35424a; /* Dark Gray */
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .rock { background-color: #e57373; }
+        .paper { background-color: #64b5f6; }
+        .scissors { background-color: #81c784; }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
         }
-        .color-box {
-            width: 100px;
-            height: 100px;
-            display: inline-block;
-            margin: 10px;
-        }
-        .red { background-color: red; }
-        .blue { background-color: blue; }
-        .yellow { background-color: yellow; }
-        .orange { background-color: orange; }
-        .purple { background-color: purple; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Colorful Website</h1>
-    </header>
+    <h1>Rock, Paper, Scissors</h1>
+    <button class="button rock" onclick="play('rock')">Rock</button>
+    <button class="button paper" onclick="play('paper')">Paper</button>
+    <button class="button scissors" onclick="play('scissors')">Scissors</button>
 
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <div class="result" id="result"></div>
 
-    <section id="home">
-        <h2>Home Section</h2>
-        <p>This is a colorful test page for demonstrating basic HTML and CSS.</p>
-    </section>
+    <script>
+        function play(userChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+            let result;
 
-    <section id="about">
-        <h2>About Section</h2>
-        <p>Here are some colorful boxes:</p>
-        <div class="color-box red"></div>
-        <div class="color-box blue"></div>
-        <div class="color-box yellow"></div>
-        <div class="color-box orange"></div>
-        <div class="color-box purple"></div>
-    </section>
+            if (userChoice === computerChoice) {
+                result = "It's a draw! You both chose " + userChoice + ".";
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win! " + userChoice + " beats " + computerChoice + ".";
+            } else {
+                result = "You lose! " + computerChoice + " beats " + userChoice + ".";
+            }
 
-    <footer>
-        <p>&copy; 2024 Colorful Test Website</p>
-    </footer>
+            document.getElementById('result').innerText = result;
+        }
+    </script>
 </body>
 </html>
