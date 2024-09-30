@@ -17,7 +17,4 @@ public class GuessTheNumber {
         while (!hasGuessedCorrectly) {
             System.out.print("Enter your guess: ");
             int playerGuess 
-  This is update pushing from Automation LOcal Repo 
-
-  This is second update in given file & push to AUtomation branch from local.
-  this is third changes done from aytomation team on monday.
+  This is update pushing from /AKshay to Automation branch for testing pipeline
