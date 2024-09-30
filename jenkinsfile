@@ -1,0 +1,52 @@
+pipeline {
+    agent any 
+    
+    triggers {
+        pollSCM('H/2 * * * *') // Polls every 2 minutes
+    }
+
+    stages {
+        stage('Pull Latest Changes') {
+            steps {
+                script {
+                    dir('/home/akshay/manali') {
+                        resolveScm source: [$class: 'GitSCMSource', credentialsId: '', id: '_', remote: 'https://github.com/Akshaay7/Nikita.git', traits: [gitBranchDiscovery()]], targets: ['Automation']
+                        sh 'git checkout Automation'
+                        sh 'git pull origin Automation'
+                    }
+                }
+            }
+        }
+
+        stage('Checking') {
+            steps {
+                script {
+                    sh 'pwd'
+                    sh 'whoami'
+                }
+            }
+        }
+
+        stage('Sending Data to Automation Folder') {
+            steps {
+                script {
+                    sh 'rsync -av --delete --exclude=".*" /home/akshay/manali/ /home/akshay/Automation'
+                }
+            }
+        }
+
+        stage('Sending Data to Automation') {
+            steps {
+                script {
+                    dir('/home/akshay/Automation') {
+                        sh '''
+                            git checkout main
+                            git add .
+                            git commit -m "Save changes" || echo "No changes to commit"
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
