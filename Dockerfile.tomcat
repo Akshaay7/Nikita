@@ -1,0 +1,6 @@
+# Use the official Tomcat image from Docker Hub
+FROM tomcat:9.0
+
+
+# Expose Tomcat's default port
+EXPOSE 8080
