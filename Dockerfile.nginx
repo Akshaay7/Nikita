@@ -1,8 +1,0 @@
-# Use the official Nginx image from Docker Hub
-FROM nginx:latest
-
-# Copy the Nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose Nginx's default port
-EXPOSE 80
